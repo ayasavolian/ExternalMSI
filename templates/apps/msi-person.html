@@ -1,0 +1,237 @@
+{% extends "msi-header.html" %}
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/msi.js') }}"></script>
+
+
+<div class = "msi-background grey-bkg-color">
+  <div id = "msi-body" class = "msi-body white-bkg-color">
+    <div class = "msi-option-bar purple-bkg-color font-standard white-font-color transform-light">
+      <div class = "msi-option-container display">
+        <div class = "msi-option">
+          Best Bets
+        </div>
+      </div>
+      <div class = "msi-option-container display">
+        <div class = "msi-option">
+          My Watch List
+        </div>
+      </div>
+      <div class = "msi-option-container float-right">
+        <div class = "msi-option">
+          Search
+        </div>
+      </div>
+    </div>
+    <div class = "msi-person-main-container">
+      <div class = "msi-person-title-name msi-person-title-space">
+        {{person.firstName}} {{person.lastName}}
+      </div>
+      <div class = "msi-person-sub-title msi-person-sub-title-space">
+        Basic Information:
+      </div>
+      <div class = "info-main-container display">
+        <div class = "info-inner-container float-left">
+          <div class = "info-container display">
+            <div class = "label float-left">
+              First Name:
+            </div>
+            <div class = "info float-left">
+              {{person.firstName}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Last Name:
+            </div>
+            <div class = "info float-left">
+              {{person.lastName}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Title:
+            </div>
+            <div class = "info float-left">
+              {{person.title}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Lead Score:
+            </div>
+            <div class = "info float-left">
+              {{person.leadScore}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Phone:
+            </div>
+            <div class = "info float-left">
+              {{person.phone}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Email:
+            </div>
+            <div class = "info float-left">
+              {{person.email}}
+            </div>
+          </div>
+        </div>
+        <div class = "info-inner-container float-left">
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Company:
+            </div>
+            <div class = "info float-left">
+              {{person.company}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Industry:
+            </div>
+            <div class = "info float-left">
+              {{person.industry}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Country:
+            </div>
+            <div class = "info float-left">
+              {{person.country}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              State:
+            </div>
+            <div class = "info float-left">
+              {{person.state}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              City:
+            </div>
+            <div class = "info float-left">
+              {{person.city}}
+            </div>
+          </div>
+          <div class = "info-container display">
+            <div class = "label float-left">
+              Zip Code:
+            </div>
+            <div class = "info float-left">
+              {{person.postalCode}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "msi-person-sub-title msi-person-sub-title-space-small margin-left">
+        Marketo Sales Insight:
+      </div>
+      <div class = "msi-info-container display msi-flames-space margin-left">
+        <div class = "msi-person-stats display">
+          {% if person.leadScore > 750 %}
+            <img class = "stars-small float-left" id = "star-value" src = "static/img/stars3.png">
+          {% elif person.leadScore > 200 %}
+            <img class = "stars-small float-left" id = "star-value" src = "static/img/stars2.png">
+          {% else %}
+            <img class = "stars-small float-left" id = "star-value" src = "static/img/stars1.png">
+          {% endif %}
+          {% if person.relativeScore == 3 %}
+            <img class = "flames-small float-left" src = "static/img/flameon3.png">
+          {% elif person.relativeScore == 2  %}
+            <img class = "flames-small float-left" src = "static/img/flameon2.png">
+          {% else %}
+            <img class = "flames-small float-left" src = "static/img/flameon1.png">
+          {% endif %}
+        </div>
+      </div>
+      <div class = "activity-bar-container">
+        <div id = "moments" class = "activity-bar activity-bar-theme float-left activity-bar-theme-select">
+          Interesting Moments
+        </div>
+        <div id = "webpage" class = "activity-bar activity-bar-theme float-left">
+          Website Log
+        </div>
+        <div id = "score" class = "activity-bar activity-bar-theme float-left">
+          Score Changes
+        </div>
+        <div id = "email" class = "activity-bar activity-bar-theme float-left">
+          Email Activity
+        </div>
+      </div>
+      <div class = "info-main-container display">
+        <div id = "moments-" class = "info-activity-container display">
+          {% for act in moments %}
+            <div class = "activity-container display">
+              <div class = "activity-mktg-asset-name float-left margin-left">
+                {{act.activity_mktg_asset_name}}:
+              </div>
+              <div class = "activity-description float-left">
+                {{act.activity_description}}
+              </div>
+              <div class = "activity-description float-right margin-right">
+                {{act.activity_datetime}}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div id = "score-" class = "info-activity-container display none">
+          {% for act in score %}
+            <div class = "activity-container display">
+              <div class = "activity-mktg-asset-name float-left margin-left">
+                {{act.activity_type}}:
+              </div>
+              <div class = "activity-description float-left margin-left">
+                {{act.activity_mktg_asset_name}}:
+              </div>
+              <div class = "activity-description float-left">
+                {{act.activity_description}}
+              </div>
+              <div class = "activity-description float-right margin-right">
+                {{act.activity_datetime}}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div id = "email-" class = "info-activity-container display none">
+          {% for act in email %}
+            <div class = "activity-container display">
+              <div class = "activity-mktg-asset-name float-left margin-left">
+                {{act.activity_type}} - 
+              </div>
+              <div class = "activity-description float-left">
+                {{act.activity_mktg_asset_name}}
+              </div>
+              <div class = "activity-description float-right margin-right">
+                {{act.activity_datetime}}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div id = "webpage-" class = "info-activity-container display none">
+          {% for act in webpage %}
+            <div class = "activity-container display">
+              <div class = "activity-mktg-asset-name float-left margin-left">
+                {{act.activity_type}} - 
+              </div>
+              <div class = "activity-description float-left">
+                {{act.activity_mktg_asset_name}}
+              </div>
+              <div class = "activity-description float-right margin-right">
+                {{act.activity_datetime}}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

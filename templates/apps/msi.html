@@ -1,0 +1,64 @@
+{% extends "msi-header.html" %}
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/msi.js') }}"></script>
+
+
+<div class = "msi-background grey-bkg-color">
+  <div id = "msi-body" class = "msi-body white-bkg-color">
+    <div class = "msi-option-bar purple-bkg-color font-standard white-font-color transform-light">
+      <div class = "msi-option-container display">
+        <div class = "msi-option">
+          Best Bets
+        </div>
+      </div>
+      <div class = "msi-option-container display">
+        <div class = "msi-option">
+          My Watch List
+        </div>
+      </div>
+      <div class = "msi-option-container float-right">
+        <div class = "msi-option">
+          Search
+        </div>
+      </div>
+    </div>
+    {% for person in msi_list %}
+    <a href = "/person?id={{person.id}}">
+      <div class = "msi-person-container" id = "{{person.id}}">
+        <div class = "msi-person-inner-container display">
+          <div class = "msi-person-info float-left">
+            <div class = "msi-person-name">
+              {{person.firstName}} {{person.lastName}}
+            </div>
+            <div class = "msi-person-title">
+              {{person.company}}
+            </div>
+            <div class = "msi-person-title">
+              {{person.title}}
+            </div>
+          </div>
+          <div class = "msi-person-stats float-right">
+            {% if person.leadScore > 750 %}
+              <img class = "stars float-left" id = "star-value" src = "static/img/stars3.png">
+            {% elif person.leadScore > 200 %}
+              <img class = "stars float-left" id = "star-value" src = "static/img/stars2.png">
+            {% else %}
+              <img class = "stars float-left" id = "star-value" src = "static/img/stars1.png">
+            {% endif %}
+            {% if person.relativeScore == 3 %}
+              <img class = "flames float-left" src = "static/img/flameon3.png">
+            {% elif person.relativeScore == 2  %}
+              <img class = "flames float-left" src = "static/img/flameon2.png">
+            {% else %}
+              <img class = "flames float-left" src = "static/img/flameon1.png">
+            {% endif %}
+            <!--{{person.leadScore}} {{person.relativeScore}}-->
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+    
+  </div>
+</div>
+{% endblock %}
